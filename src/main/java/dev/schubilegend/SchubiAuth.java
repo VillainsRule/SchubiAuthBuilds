@@ -25,7 +25,6 @@ public class SchubiAuth {
     public static final String VERSION = "2.0";
     public static Minecraft mc = Minecraft.getMinecraft();
     public static Session originalSession = mc.getSession();
-    public static String onlineStatus = "§4╳ Offline";
     public static String isSessionValid = "§2✔ Valid";
 
     @Mod.EventHandler
@@ -42,7 +41,6 @@ public class SchubiAuth {
             new Thread(() -> {
                 try {
                     isSessionValid = APIUtils.validateSession(mc.getSession().getToken()) ? "§2✔ Valid" : "§4╳ Invalid";
-                    onlineStatus = APIUtils.checkOnline(mc.getSession().getUsername()) ? "§2✔ Online" : "§4╳ Offline";
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -52,7 +50,7 @@ public class SchubiAuth {
     @SubscribeEvent
     public void onDrawScreenPost(GuiScreenEvent.DrawScreenEvent.Post e) throws IOException, ParseException {
         if (e.gui instanceof GuiMultiplayer) {
-            Minecraft.getMinecraft().fontRendererObj.drawString("§fUser: " +  mc.getSession().getUsername() + "  §f|  " + onlineStatus + "  §f|  " + isSessionValid, 5, 10, Color.RED.getRGB());
+            Minecraft.getMinecraft().fontRendererObj.drawString("§fUser: " +  mc.getSession().getUsername() + "  §f|  " + isSessionValid, 5, 10, Color.RED.getRGB());
         }
     }
     @SubscribeEvent

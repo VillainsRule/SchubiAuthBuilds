@@ -36,20 +36,6 @@ public class APIUtils {
             return false;
         }
     }
-    public static Boolean checkOnline(String UUID)
-    {
-        try {
-            CloseableHttpClient client = HttpClients.createDefault();
-            HttpGet requests = new HttpGet("https://api.slothpixel.me/api/players/" + UUID);
-            CloseableHttpResponse response = client.execute(requests);
-            String jsonString = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-            JsonObject jsonObject = new JsonParser().parse(jsonString).getAsJsonObject();
-            return jsonObject.get("online").getAsBoolean();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
     public static int changeName(String newName,String token) throws IOException{
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPut request = new HttpPut("https://api.minecraftservices.com/minecraft/profile/name/" + newName);
